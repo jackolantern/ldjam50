@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/vampire-1.png" type="Texture" id=1]
+[ext_resource path="res://Vampire.gd" type="Script" id=2]
+[ext_resource path="res://Dialog.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
+
+[sub_resource type="CircleShape2D" id=6]
+
+[node name="Vampire" type="AnimatedSprite"]
+position = Vector2( 16, 16 )
+z_index = 1
+frames = SubResource( 4 )
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 6 )
+
+[node name="Dialog" parent="." instance=ExtResource( 3 )]
+
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_Area2D_area_shape_entered"]
